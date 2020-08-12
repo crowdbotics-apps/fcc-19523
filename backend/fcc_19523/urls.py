@@ -30,6 +30,9 @@ urlpatterns = [
     # Override email confirm to use allauth's HTML view instead of rest_auth's API view
     path("rest-auth/registration/account-confirm-email/<str:key>/", confirm_email),
     path("rest-auth/registration/", include("rest_auth.registration.urls")),
+    path("api/v1/", include("healthcare.api.v1.urls")),
+    path("healthcare/", include("healthcare.urls")),
+    path("home/", include("home.urls")),
 ]
 
 admin.site.site_header = "FCC"
@@ -38,15 +41,11 @@ admin.site.index_title = "FCC Admin"
 
 # swagger
 api_info = openapi.Info(
-    title="FCC API",
-    default_version="v1",
-    description="API documentation for FCC App",
+    title="FCC API", default_version="v1", description="API documentation for FCC App",
 )
 
 schema_view = get_schema_view(
-    api_info,
-    public=True,
-    permission_classes=(permissions.IsAuthenticated,),
+    api_info, public=True, permission_classes=(permissions.IsAuthenticated,),
 )
 
 urlpatterns += [
